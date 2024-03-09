@@ -2,16 +2,16 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
+import static com.codeborne.selenide.Condition.text;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TestStudentRegistrationForm {
 
     @BeforeAll
-    static void beforAll() {
+    static void beforeAll() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
@@ -34,7 +34,7 @@ public class TestStudentRegistrationForm {
         $x("//*[contains(text(),'Maths')]").click();
         $("[for=hobbies-checkbox-3]").click();
         $("#submit").scrollTo();
-        $("input#uploadPicture").uploadFile(new File("/Users/daria/IdeaProjects/qa_guru/demoqa-tests-26/kek.jpg"));
+        $("#uploadPicture").uploadFromClasspath("kek.jpg");
         $("#currentAddress").setValue("Cambridge, Massachusetts");
         $x("//*[contains(text(),'Select State')]").click();
         $x("//*[contains(text(),'NCR')]").click();
@@ -42,8 +42,16 @@ public class TestStudentRegistrationForm {
         $x("//*[contains(text(),'Delhi')]").click();
         $("#submit").click();
 
-        
-        $x("//*[contains(text(),'Thanks for submitting the form')]");
-        $x("//*[contains(text(),'Student Name')]/..*[2]");
+
+        $$("tr").get(1).shouldHave(text("Ann Jillian"));
+        $$("tr").get(2).shouldHave(text("JillianAnn@goole.com"));
+        $$("tr").get(3).shouldHave(text("Female"));
+        $$("tr").get(4).shouldHave(text("8913770733"));
+        $$("tr").get(5).shouldHave(text("15 March,2010"));
+        $$("tr").get(6).shouldHave(text("Maths"));
+        $$("tr").get(7).shouldHave(text("Music"));
+        $$("tr").get(8).shouldHave(text("kek.jpg"));
+        $$("tr").get(9).shouldHave(text("Cambridge, Massachusetts"));
+        $$("tr").get(10).shouldHave(text("NCR Delhi"));
     }
 }
