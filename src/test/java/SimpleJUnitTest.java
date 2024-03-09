@@ -27,7 +27,7 @@ public class SimpleJUnitTest {
 
     @AfterAll
     static void afterAll() {
-        
+
     }
 
     @Test
